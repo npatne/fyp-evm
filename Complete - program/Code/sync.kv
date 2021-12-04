@@ -1,0 +1,707 @@
+<LoginWindow>
+    name: "login"
+    uname: uname
+    pname: pname
+    war: war
+    FloatLayout:
+        
+        Label:
+            pos_hint:{"x":0.1, "top":0.8}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "User Name :"
+            
+        TextInput:
+            id: uname
+            pos_hint:{"x": 0.45 , "top":0.755}
+            size_hint:0.35, 0.06
+            font_size: (root.width**2 + root.height**2) / 15.5**4
+            multiline: False
+            
+        Label:
+            pos_hint:{"x":0.1, "top":0.7}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "Password :"
+            
+        TextInput:
+            id: pname
+            pos_hint:{"x": 0.45 , "top":0.655}
+            size_hint:0.35, 0.06
+            password: True
+            font_size: (root.width**2 + root.height**2) / 15.5**4
+            multiline: False
+            
+        Label:
+            id: war
+            opacity : 0
+            pos_hint:{"x":0.33, "top":0.55}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 15.5**4
+            
+        Button:
+            pos_hint:{"x":0.345,"y":0.3}
+            size_hint: 0.3, 0.08
+            font_size: (root.width**2 + root.height**2) / 15.5**4
+            text: "Login"
+            on_release:
+                root.validation()
+                root.clear()
+                            
+
+<BufferWindow>
+    name: "buffer"   
+    on_enter: root.popy()
+    
+    btn : btn
+    pop:pop
+    
+    FloatLayout:
+        Label:
+            pos_hint:{"x":0.32, "top":0.8}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 12.5**4
+            text: "Synchronization Process"
+            
+        Label:
+            id:pop
+            pos_hint:{"x":0.32, "top":0.6}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 15.5**4
+        
+        Button:
+            id: btn
+            disabled: True
+            pos_hint:{"x":0.345,"y":0.3}
+            size_hint: 0.3, 0.08
+            font_size: (root.width**2 + root.height**2) / 16**4
+            text: "Start Sync"
+            on_release:
+                root.switch() 
+                
+                            
+<DashWindow>
+    name: "dash"
+    FloatLayout:
+        
+        Label:
+            pos_hint:{"x":0.30, "top":0.8}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 10.5**4
+            text: "Dashboard"
+        
+        Label:
+            pos_hint:{"x":0.32, "y":0.09}
+            size_hint:0.35, 0.15
+            font_size: (root.width**2 + root.height**2) / 15**4
+            color: 0,1,0,1
+            text: "*to initiate final results, compute constituency results first."
+        
+        Button:
+            id: btn
+            pos_hint:{"x":0.345,"y":0.2}
+            size_hint: 0.3, 0.08
+            background_color: 0,0.3,0.7,1
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "Sign Out"
+            on_release:
+                root.switch( "login" )
+                
+        
+        Button:
+            id: btn
+            pos_hint:{"x":0.345,"y":0.4}
+            size_hint: 0.3, 0.08
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "Final Result*"
+            on_release:
+                root.switch( "frslt" )    
+        
+        Button:
+            id: btn
+            pos_hint:{"x":0.345,"y":0.5}
+            size_hint: 0.3, 0.08
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "Constituency Result"
+            on_release:
+                root.switch( "consti" )  
+            
+
+<FRsltWindow>
+    name: "frslt"
+    on_pre_enter:root.initwids()
+    #******result ids******
+    
+    p1name:p1name
+    p1logo:p1logo
+    p1seats: p1seats
+    
+    p2name:p2name
+    p2logo:p2logo
+    p2seats: p2seats
+    
+    p3name:p3name
+    p3logo:p3logo
+    p3seats: p3seats
+    
+    p4name:p4name
+    #p4logo:p4logo
+    p4seats: p4seats
+    
+    BoxLayout:
+        orientation: "vertical"
+        
+        BoxLayout:
+            size_hint: 1, 0.25
+            Label:
+                pos_hint:{"x":0.32,"top":0.6}
+                size_hint: 0.35, 0.2
+                font_size: (root.width**2 + root.height**2) / 12.5**4
+                text: "Final Result"
+                
+        BoxLayout:
+            size_hint: 1, 0.12
+
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Party Symbol"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Party"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Seats"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            
+        
+        ScrollView:
+            GridLayout:
+                orientation: "vertical"
+                spacing: 4
+                size_hint_y: None
+                height: self.minimum_height  
+                row_default_height: 60
+                cols:1
+                
+                BoxLayout:
+                
+                    Image:
+                        id:p1logo
+                        
+                    Label:
+                        id:p1name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:p1seats
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                        
+                BoxLayout:
+                
+                    Image:
+                        id:p2logo
+                        
+                    Label:
+                        id:p2name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:p2seats
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                
+                BoxLayout:
+                
+                    Image:
+                        id:p3logo
+                        
+                    Label:
+                        id:p3name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:p3seats
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                
+                BoxLayout:
+                
+                    #Image:
+                        #id:p4logo
+                        
+                    Label:
+                        id:p4name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:p4seats
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                        
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"                
+                
+        BoxLayout:
+            size_hint: 1, 0.16
+            Button:
+                pos_hint:{"x":0.9,"top":1}
+                size_hint: 0.35, 1
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Dashboard"
+                background_color: 0,0.9,0.1,1
+                on_release:
+                    root.switch()
+
+
+<ConstiWindow>
+    name: "consti"
+    on_pre_enter:root.initwids()
+    # *****consti ids******
+    
+    mum:mum
+    mlogo:mlogo
+    mwp:mwp
+    mwcan:mwcan
+    
+    dli:dli
+    dlogo:dlogo
+    dwp:dwp
+    dwcan:dwcan
+    
+    nag:nag
+    nlogo:nlogo
+    nwp:nwp
+    nwcan:nwcan
+    
+    kol:kol
+    klogo:klogo
+    kwp:kwp
+    kwcan:kwcan
+    
+    # *****end ids****
+    
+    BoxLayout:
+        orientation: "vertical"
+        
+        BoxLayout:
+            size_hint: 1, 0.25
+            Label:
+                pos_hint:{"x":0.32,"top":0.6}
+                size_hint: 0.35, 0.2
+                font_size: (root.width**2 + root.height**2) / 12.5**4
+                text: "Constituency Wise Result"
+                
+        BoxLayout:
+            size_hint: 1, 0.12
+
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Constituency"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Party Symbol"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Winner Party"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Candidate"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+        ScrollView:
+            GridLayout:
+                orientation: "vertical"
+                spacing: 4
+                size_hint_y: None
+                height: self.minimum_height  
+                row_default_height: 60
+                cols:1
+                
+                BoxLayout:
+                
+                    Button:
+                        id:mum
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                        text: "Mumbai"
+                        background_color: 0,0.2,0.9,1
+                        on_release:
+                            root.mumbai()
+                        
+                    Image:
+                        id:mlogo
+                        
+                    Label:
+                        id:mwp
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                    
+                    Label: 
+                        id:mwcan
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                    
+                        
+                BoxLayout:
+                
+                    Button:
+                        id:nag
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                        text: "Nagpur"
+                        background_color: 0,0,0.9,1
+                        on_release:
+                            root.nagpur()
+                        
+                    Image:
+                        id:nlogo
+                                            
+                    
+                    Label:
+                        id:nwp
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                    
+                    Label: 
+                        id:nwcan
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                
+                BoxLayout:
+                
+                    Button:
+                        id: dli
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                        text: "Delhi"
+                        background_color: 0,0,0.9,1
+                        on_release:
+                            root.delhi()
+                        
+                    Image:
+                        id:dlogo
+                                            
+                    
+                    Label:
+                        id:dwp
+                        font_size: (root.width**2 + root.height**2) / 14.2**4               
+                    
+                    Label: 
+                        id:dwcan
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                        
+                BoxLayout:
+                
+                    Button:
+                        id: kol
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                        text: "Kolkata"
+                        background_color: 0,0,0.9,1
+                        on_release:
+                            root.kolkata()
+                        
+                    Image:
+                        id:klogo
+                                            
+                    
+                    Label:
+                        id:kwp
+                        font_size: (root.width**2 + root.height**2) / 14.2**4               
+                    
+                    Label: 
+                        id:kwcan
+                        font_size: (root.width**2 + root.height**2) / 14.2**4
+                
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"                
+                
+        BoxLayout:
+            size_hint: 1, 0.16
+            Button:
+                pos_hint:{"x":0.9,"top":1}
+                size_hint: 0.35, 1
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Dashboard"
+                background_color: 0,0.9,0.1,1
+                on_release:
+                    root.switch()
+
+            
+<CandiWindow>
+    name: "candi"
+    on_pre_enter: root.initwids()
+    cstname:cstname
+    #****candi ids****
+    
+    c1name:c1name
+    c1pic:c1pic
+    c1party:c1party
+    c1votes:c1votes
+    
+    c2name:c2name
+    c2pic:c2pic
+    c2party:c2party
+    c2votes:c2votes
+    
+    c3name:c3name
+    c3pic:c3pic
+    c3party:c3party
+    c3votes:c3votes
+    
+    c4name:c4name
+    c4pic:c4pic
+    c4party:c4party
+    c4votes:c4votes
+    
+    # ****** end*******
+    
+    BoxLayout:
+        orientation: "vertical"
+        
+        BoxLayout:
+            size_hint: 1, 0.25
+            Label:
+                id: cstname
+
+                pos_hint:{"x":0.32,"top":0.6}
+                size_hint: 0.35, 0.2
+                font_size: (root.width**2 + root.height**2) / 12.5**4
+                
+                
+            Label:
+                pos_hint:{"x":0.32,"top":0.6}
+                size_hint: 0.35, 0.2
+                font_size: (root.width**2 + root.height**2) / 12.5**4
+                text: "Candidates"
+                
+        BoxLayout:
+            size_hint: 1, 0.12
+
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Symbol"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Party"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Candidate"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            
+            Label:
+                font_size: (root.width**2 + root.height**2) / 14.5**4
+                text: "Votes"
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.6,0,0.3,0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+        ScrollView:
+            GridLayout:
+                orientation: "vertical"
+                spacing: 4
+                size_hint_y: None
+                height: self.minimum_height  
+                row_default_height: 60
+                cols:1
+                
+                BoxLayout:
+                
+                    Image:
+                        id:c1pic
+                        
+                    Label:
+                        id:c1party
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c1name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c1votes
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                BoxLayout:
+                
+                    Image:
+                        id:c2pic
+                        
+                    Label:
+                        id:c2party
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c2name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c2votes
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                BoxLayout:
+                
+                    Image:
+                        id:c3pic
+                        
+                    Label:
+                        id:c3party
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c3name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c3votes
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                BoxLayout:
+                
+                    Image:
+                        id:c4pic
+                        
+                    Label:
+                        id:c4party
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c4name
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                    Label:
+                        id:c4votes
+                        font_size: (root.width**2 + root.height**2) / 14.25**4
+                    
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"
+                Label:
+                    text: "-"                
+                        
+        BoxLayout:
+            size_hint: 1, 0.16
+            Button:
+                pos_hint:{"x":0.9,"top":1}
+                size_hint: 0.35, 1
+                font_size: (root.width**2 + root.height**2) / 14**4
+                text: "Dashboard"
+                background_color: 0,0.9,0.1,1
+                on_release:
+                    root.switch()
+
+
+
+ 

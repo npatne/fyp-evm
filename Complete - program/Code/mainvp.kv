@@ -1,0 +1,297 @@
+
+<StartWindow>
+    name: "start"
+    FloatLayout:
+        cols: 1
+        
+        Label:
+            pos_hint:{"x":0.32,"top":0.7}
+            size_hint: 0.35, 0.2
+            font_size: (root.width**2 + root.height**2) / 11.5**4
+            text: "WELCOME"
+
+        
+        Button:
+            pos_hint:{"x":0.345,"y":0.25}
+            size_hint: 0.3, 0.08
+            font_size: (root.width**2 + root.height**2) / 16**4
+            text: "Next to instructions"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "instructions"
+            
+
+<InstWindow>
+    name: "instructions"
+    on_enter: root.onp()
+    on_pre_enter: root.onr()
+    btn : btn
+    
+    FloatLayout:
+        Label:
+            pos_hint:{"x":0.3,"top":1}
+            size_hint: 0.35, 0.2
+            font_size: (root.width**2 + root.height**2) / 11**4
+            text: "Instructions"
+        
+        Label:
+            pos_hint:{"x":0.2,"top":0.7}
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 13.5**4
+            text: " 1. Put your fingure on scanner \n 2. Wait for authentication \n 3. Click the button to proceed "
+            
+
+        Button:
+            id: btn
+            pos_hint:{"x":0.3,"y":0.25}
+            size_hint: 0.4, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            background_color: 1,0,0,1
+            text: "Next to vote"
+            
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "vote" 
+                
+                
+<VoteWindow>
+    name: "vote"
+    #voter details
+    
+    vname:vname
+    vudi: vuid
+    vconst: vconst
+    vpic: vpic
+    
+    #candidate details
+    
+    c1img: c1img
+    c1name: c1name
+    c1party: c1party
+    c1btn: c1btn
+    
+    c2img: c2img
+    c2name: c2name
+    c2party: c2party
+    c2btn: c2btn
+    
+    c3img: c3img
+    c3name: c3name
+    c3party: c3party
+    c3btn: c3btn
+    
+    c4img: c4img
+    c4name: c4name
+    c4party: c4party
+    c4btn: c4btn
+    
+    
+    on_pre_enter: root.details()
+    
+    
+    BoxLayout:
+        spacing: 5
+        
+        ScrollView:
+            GridLayout:
+                orientation: "vertical"
+                spacing: 5
+                size_hint_y: None
+                height: self.minimum_height  
+                row_default_height: 60
+                cols:1
+                
+                BoxLayout:
+                    Label:
+                        text: "Candidate List"
+                        color: 1,1,1,1
+                        font_size: (root.width**2 + root.height**2) / 13**4
+                        canvas.before:
+                            Color:
+                                rgba: 0.6,0,0.3,1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        
+                BoxLayout:
+                    Image:
+                        id: c1img                    
+                                            
+                    Label:
+                        id: c1party
+                        
+                        
+                    Label:
+                        id: c1name
+                    
+                        
+                    Button:
+                        id: c1btn 
+                        text: "vote"
+                        on_release:
+                            root.upcnt1()
+                            root.manager.transition.direction = "left"
+                            app.root.current = "acknowledgement"
+                
+                BoxLayout:
+                    Image:
+                        id: c2img                   
+                    
+                    Label:
+                        id: c2party
+        
+                        
+                    Label:
+                        id: c2name
+                        
+                        
+                    Button:
+                        id: c2btn 
+                        text: "vote"
+                        on_release:
+                            root.upcnt2()
+                            root.manager.transition.direction = "left"
+                            app.root.current = "acknowledgement"
+                
+                BoxLayout:
+                    Image:
+                        id: c3img                    
+                    
+                    Label:
+                        id: c3party
+                        
+                        
+                    Label:
+                        id: c3name
+                    
+                        
+                    Button:
+                        id: c3btn 
+                        text: "vote"
+                        on_release:
+                            root.upcnt3()
+                            root.manager.transition.direction = "left"
+                            app.root.current = "acknowledgement"
+                
+                BoxLayout:
+                    Image:
+                        id: c4img                    
+                    
+                    Label:
+                        id: c4party
+
+                        
+                    Label:
+                        id: c4name
+            
+                        
+                    Button:
+                        id: c4btn 
+                        text: "vote"
+                        on_release:
+                            root.upcnt4()
+                            root.manager.transition.direction = "left"
+                            app.root.current = "acknowledgement"
+                
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                Label:
+                    text:"-"
+                
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.4,1 
+            ScrollView:
+                GridLayout:
+            
+                    orientation: "vertical"
+                    spacing: 3
+                    size_hint_y: None
+                    height: self.minimum_height  
+                    row_default_height: 80
+                    cols:1
+            
+                    Label:
+                        font_size: (root.width**2 + root.height**2) / 13**4
+                        text: "Voter Details"
+                        color: 1,1,1,1
+                        canvas.before:
+                            Color:
+                                rgba: 0.6,0,0.3,1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                
+                    Image:
+                        id: vpic
+                        canvas.before:
+                            Color:
+                                rgba: 0.6,0,0.3,1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                
+            ScrollView:
+            
+                GridLayout:
+                    orientation: "vertical"
+                    spacing: 3
+                    size_hint_y: None
+                    height: self.minimum_height  
+                    row_default_height: 45
+                    cols:1
+                    
+                    Label:
+                        id: vname
+                        font_size: (root.width**2 + root.height**2) / 13.5**4
+                        color: 0.7,0.8,0.9,1
+                        text: ""
+                
+                    Label:
+                        id: vuid
+                        font_size: (root.width**2 + root.height**2) / 13.5**4
+                        text: ""
+                        color: 0.7,0.8,0.9,1
+                
+                    Label:
+                        id: vconst
+                        font_size: (root.width**2 + root.height**2) / 13.5**4
+                        text: ""
+                        color: 0.9,0.8,0.5,1
+                
+                    Label:
+            
+                
+                    Label:
+                
+              
+            
+<AckWindow>
+    name: "acknowledgement"
+    on_enter: root.stag()
+    FloatLayout:
+        
+        Label:
+            pos_hint:{"x":0.32,"top":0.6}
+            size_hint: 0.35, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "YOUR VOTE HAS BEEN REGISTERED"
+            
+            
+ 
